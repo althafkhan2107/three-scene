@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Basic Three.js Scene with Background Change</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="color" id="colorPicker" value="#ffffff">
+        <input type="file" id="imageUploader">
+    </div>
+    <div id="container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    
+    <script src="./assets/js/scene.js"></script>
+    <script>
+        // Usage example
+        var myScene = new MyScene();
+        myScene.init('container');
+        // Change the background color
+        myScene.setBackground(0xFF0000);
+        // Change the background to an image
+        // myScene.setBackgroundImage('assets/bg-image.jpg');
+        // Render the scene
+
+        // Change the background color using the color picker
+        var colorPicker = document.getElementById('colorPicker');
+        colorPicker.addEventListener('change', function () {
+            var color = colorPicker.value;
+            myScene.setBackground(color);
+        });
+
+        // Handle image upload event
+    var imageUploader = document.getElementById('imageUploader');
+    imageUploader.addEventListener('change', function (event) {
+      var file = event.target.files[0];
+      var imageUrl = URL.createObjectURL(file);
+      myScene.setBackgroundImage360(imageUrl);
+    });
+
+
+        // myScene.setBackgroundImage360('./assets/panoramic-image.jpg')
+
+        function animate() {
+            requestAnimationFrame(animate);
+            myScene.update();
+            myScene.render();
+        }
+        animate();
+    </script>
+</body>
+
+</html>
